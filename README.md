@@ -7,12 +7,21 @@ A simple Ruby API wrapper for [Google AMP Cache](https://developers.google.com/a
 Create API client using Google API key:
 
 ```ruby
-client = Google::AMP::Cache::Client.new MY_GOOGLE_API_KEY
+client = Google::AMP::Cache::Client.new MY_GOOGLE_API_KEY, File.read(MY_PRIVATE_KEY)
+```
+
+
+### Update cache
+
+Just simply:
+
+```ruby
+client.update_cache('https://limitless-tundra-65881.herokuapp.com/amp-access/sample/0')
 ```
 
 ### Match URLs to AMP URLs
 
-Then you can query AMP URLs from Google AMP Cache:
+You can query AMP URLs from Google AMP Cache:
 
 ```ruby
 client.batch_get("https://www.theguardian.com/membership/2016/feb/24/todays-release-of-accelerated-mobile-pages-amp")
