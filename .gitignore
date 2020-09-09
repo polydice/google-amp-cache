@@ -1,8 +1,8 @@
 /.bundle/
-/.yardoc
-/_yardoc/
+/Gemfile.lock
 /coverage/
 /doc/
 /pkg/
 /spec/reports/
 /tmp/
+/private-key.pem
