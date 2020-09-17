@@ -10,15 +10,17 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Richard Lee']
   spec.email         = ['rl@polydice.com']
 
+  spec.required_ruby_version = '>= 2.4.0'
+
   spec.summary       = 'A Ruby wrapper for Google AMP Cache API'
   spec.description   = spec.summary
   spec.homepage      = 'https://github.com/polydice/google-amp-cache'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.files         = Dir['lib/**/*', 'LICENSE.txt', 'CHANGELOG.md', 'README.md']
+  spec.test_files    = Dir['test/**/*', 'Rakefile']
+  spec.executables   = Dir.glob('bin/*').map { |f| File.basename(f) }
+
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'faraday', '~> 1.0'
