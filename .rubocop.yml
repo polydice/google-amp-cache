@@ -1,0 +1,18 @@
+require:
+  - rubocop-packaging
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-minitest
+  - rubocop-thread_safety
+
+AllCops:
+  NewCops: enable
+
+Metrics/AbcSize:
+  Max: 25
+
+Metrics/MethodLength:
+  Max: 15
+
+Style/Documentation:
+  Enabled: false

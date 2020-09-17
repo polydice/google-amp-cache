@@ -11,7 +11,13 @@ module Google
     module Cache
       class Client
         UPDATE_CACHE_API_DOMAIN_SUFFIX = 'cdn.ampproject.org'
-        DIGEST = OpenSSL::Digest::SHA256.new
+        DIGEST = OpenSSL::Digest.new('SHA256')
+
+        CONTENT_TYPE_MAPPING = {
+          document: 'c',
+          image: 'i',
+          resource: 'r'
+        }.freeze
 
         attr_reader :private_key, :google_api_key
 
@@ -54,14 +60,7 @@ module Google
         end
 
         def short_content_type(type)
-          case type.to_sym
-          when :document
-            'c'
-          when :image
-            'i'
-          when :resource
-            'r'
-          end
+          CONTENT_TYPE_MAPPING.fetch(type.to_sym, :c)
         end
 
         def format_domain(url)
