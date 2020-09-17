@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './test_helper'
 
 class ClientMinitest < Minitest::Test
@@ -26,7 +28,7 @@ class ClientMinitest < Minitest::Test
     end
 
     it 'flushes cache' do
-      assert @client.update_cache('https://limitless-tundra-65881.herokuapp.com/amp-access/sample/0')
+      assert_equal @client.update_cache('https://limitless-tundra-65881.herokuapp.com/amp-access/sample/0'), 'OK'
     end
   end
 end
