@@ -6,8 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## 0.2.0 - 2020-09-17
+
+* Rewrite client to replace HTTParty with Faraday
+* Format Ruby codes
+
 ## 0.1.0 - 2018-06-13
-### Added
 
 * Import the project with initial implementation.
 
