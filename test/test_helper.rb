@@ -6,4 +6,7 @@ require 'minitest/reporters'
 Minitest::Reporters.use!
 
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+
+require 'webmock/minitest'
+require 'timecop'
 require 'google/amp/cache'
