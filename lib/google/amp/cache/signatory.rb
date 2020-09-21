@@ -22,7 +22,7 @@ module Google
         private
 
         def signer
-          raise Google::AMP::Cache::PrivateKeyNotFound if private_key.blank?
+          raise Google::AMP::Cache::PrivateKeyNotFound if private_key.nil? || private_key.empty?
 
           OpenSSL::PKey::RSA.new(private_key)
         end

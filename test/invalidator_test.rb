@@ -7,6 +7,7 @@ class InvalidatorMinitest < Minitest::Test
   describe '#ping' do
     describe 'with correct key configured' do
       before do
+        WebMock.disable!
         Google::AMP::Cache.configure do |config|
           config.amp_cache_domain = 'cdn.ampproject.org'
           config.private_key = File.read("#{File.dirname(__FILE__)}/private-key.pem")
@@ -21,6 +22,7 @@ class InvalidatorMinitest < Minitest::Test
 
     describe 'with incorrect key' do
       before do
+        WebMock.disable!
         Google::AMP::Cache.configure do |config|
           config.amp_cache_domain = 'cdn.ampproject.org'
           config.private_key = OpenSSL::PKey::RSA.new(2048).to_s
@@ -36,6 +38,7 @@ class InvalidatorMinitest < Minitest::Test
 
     describe 'with empty key' do
       before do
+        WebMock.disable!
         Google::AMP::Cache.configure do |config|
           config.amp_cache_domain = 'cdn.ampproject.org'
           config.private_key = ''
@@ -52,7 +55,7 @@ class InvalidatorMinitest < Minitest::Test
 
   describe 'with Bing as amp cache domain configured' do
     before do
-      Timecop.freeze(Time.zone.at(1_600_685_360))
+      Timecop.freeze(Time.at(1_600_685_360))
       Google::AMP::Cache.configure do |config|
         config.amp_cache_domain = 'bing-amp.com'
         config.private_key = File.read("#{File.dirname(__FILE__)}/private-key.pem")
@@ -73,8 +76,7 @@ class InvalidatorMinitest < Minitest::Test
             'Host' => 'limitless--tundra--65881-herokuapp-com.bing-amp.com',
             'User-Agent' => 'Ruby'
           }
-        )
-        .to_return(status: 200, body: 'OK', headers: {})
+        ).to_return(status: 200, body: 'OK', headers: {})
 
       assert_equal('OK', Google::AMP::Cache::Invalidator.new('https://limitless-tundra-65881.herokuapp.com/amp-access/sample/0').ping)
     end
