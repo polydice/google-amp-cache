@@ -1,7 +1,6 @@
 require:
   - rubocop-packaging
   - rubocop-performance
-  - rubocop-rails
   - rubocop-minitest
   - rubocop-thread_safety
 
@@ -16,3 +15,7 @@ Metrics/MethodLength:
 
 Style/Documentation:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*.rb'
