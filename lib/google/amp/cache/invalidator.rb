@@ -24,7 +24,7 @@ module Google
           @content_type = CONTENT_TYPE_MAPPING.fetch(content_type.to_sym, :c)
         end
 
-        def ping
+        def update_cache
           response = Net::HTTP.get_response(signed_uri)
 
           case response.code.to_i

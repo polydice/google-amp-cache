@@ -4,7 +4,7 @@ require_relative './test_helper'
 require 'openssl'
 
 class InvalidatorMinitest < Minitest::Test
-  describe '#ping' do
+  describe '#update_cache' do
     describe 'with correct key configured' do
       before do
         WebMock.disable!
@@ -15,7 +15,7 @@ class InvalidatorMinitest < Minitest::Test
       end
 
       it 'receive sucessful response' do
-        response = Google::AMP::Cache::Invalidator.new('https://limitless-tundra-65881.herokuapp.com/amp-access/sample/0').ping
+        response = Google::AMP::Cache::Invalidator.new('https://limitless-tundra-65881.herokuapp.com/amp-access/sample/0').update_cache
         assert_equal('OK', response)
       end
     end
@@ -31,7 +31,7 @@ class InvalidatorMinitest < Minitest::Test
 
       it 'raises forbidden error' do
         assert_raises Google::AMP::Cache::ForbiddenError do
-          Google::AMP::Cache::Invalidator.new('https://limitless-tundra-65881.herokuapp.com/amp-access/sample/0').ping
+          Google::AMP::Cache::Invalidator.new('https://limitless-tundra-65881.herokuapp.com/amp-access/sample/0').update_cache
         end
       end
     end
@@ -47,7 +47,7 @@ class InvalidatorMinitest < Minitest::Test
 
       it 'raises forbidden error' do
         assert_raises Google::AMP::Cache::PrivateKeyNotFound do
-          Google::AMP::Cache::Invalidator.new('https://limitless-tundra-65881.herokuapp.com/amp-access/sample/0').ping
+          Google::AMP::Cache::Invalidator.new('https://limitless-tundra-65881.herokuapp.com/amp-access/sample/0').update_cache
         end
       end
     end
@@ -64,7 +64,6 @@ class InvalidatorMinitest < Minitest::Test
 
     after do
       Timecop.return
-      WebMock.disable!
     end
 
     it 'sends invalidate requests to Bing AMP CDN instead' do
@@ -78,7 +77,9 @@ class InvalidatorMinitest < Minitest::Test
           }
         ).to_return(status: 200, body: 'OK', headers: {})
 
-      assert_equal('OK', Google::AMP::Cache::Invalidator.new('https://limitless-tundra-65881.herokuapp.com/amp-access/sample/0').ping)
+      WebMock.disable!
+
+      assert_equal('OK', Google::AMP::Cache::Invalidator.new('https://limitless-tundra-65881.herokuapp.com/amp-access/sample/0').update_cache)
     end
   end
 end
